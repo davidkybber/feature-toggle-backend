@@ -8,7 +8,7 @@ import jakarta.ws.rs.Path
 import jakarta.ws.rs.core.Response
 import kotlin.random.Random
 
-@Path("/api/car")
+@Path("/api/featuretoggle")
 class FeatureToggleController {
     val featureToggles = mutableListOf(FeatureToggleDto("toggle1", "1"))
 
@@ -21,7 +21,7 @@ class FeatureToggleController {
     fun saveFeatureToggle(featureToggle: FeatureToggleDto): Response {
         featureToggle.id = Random.nextInt(1, 1000000).toString()
         featureToggles.add(featureToggle)
-        return Response.ok("$featureToggle has been added to the cars list.").build()
+        return Response.ok("${featureToggle.featureToggle} has been added to the feature toggles list.").build()
     }
 
     @DELETE
