@@ -12,7 +12,13 @@ class FeatureToggleRepositoryTest {
 
     @Test
     fun `find toggle by name returns toggle`() {
-        val thing = featureToggleRepository.findByFeatureToggle("test toggle")
-        assertTrue(thing?.id == "1")
+        val featureToggle = featureToggleRepository.findByFeatureToggle("test toggle")
+        assertTrue(featureToggle?.name == "test toggle")
+    }
+
+    @Test
+    fun `find toggle by id returns toggle`() {
+        val featureToggle = featureToggleRepository.findById("1")
+        assertTrue(featureToggle?.id == "1")
     }
 }
