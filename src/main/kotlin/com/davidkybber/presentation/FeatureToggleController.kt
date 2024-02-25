@@ -21,7 +21,7 @@ class FeatureToggleController {
     fun saveFeatureToggle(featureToggle: FeatureToggleDto): Response {
         featureToggle.id = Random.nextInt(1, 1000000).toString()
         featureToggles.add(featureToggle)
-        return Response.ok("${featureToggle.featureToggle} has been added to the feature toggles list.").build()
+        return Response.ok("${featureToggle.name} has been added to the feature toggles list.").build()
     }
 
     @DELETE

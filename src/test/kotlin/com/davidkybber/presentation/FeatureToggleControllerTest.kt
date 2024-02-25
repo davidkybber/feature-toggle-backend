@@ -18,7 +18,7 @@ class FeatureToggleControllerTest {
 
     @Test
     fun `POST request to create toggle`() {
-        val requestBody = FeatureToggleDto(id = "2", featureToggle = "test2")
+        val requestBody = FeatureToggleDto(id = "2", name = "test2")
         given()
             .contentType("application/json")
             .body(requestBody)
