@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test
 @QuarkusTest
 class FeatureToggleRepositoryTest {
     @Inject
-    lateinit var featureToggleRepository: FeatureToggleRepository
+    lateinit var featureToggleRepository: DatabaseFeatureToggleRepository
 
     @Test
     fun `find toggle by name returns toggle`() {
-        val featureToggle = featureToggleRepository.findByFeatureToggle("test toggle")
+        val featureToggle = featureToggleRepository.fetchFeatureToggle("test toggle")
         assertTrue(featureToggle?.name == "test toggle")
     }
 
