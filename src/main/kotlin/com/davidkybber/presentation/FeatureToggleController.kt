@@ -10,8 +10,6 @@ import kotlin.random.Random
 
 @Path("/api/featuretoggle")
 class FeatureToggleController {
-    val featureToggles = mutableListOf(FeatureToggleDto("toggle1", "1"))
-
     @GET
     fun getFeatureToggles(): Response {
         return Response.ok(featureToggles).build()
