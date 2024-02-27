@@ -2,6 +2,7 @@ package com.davidkybber.application
 
 import com.davidkybber.core.models.FeatureToggle
 import jakarta.enterprise.context.ApplicationScoped
+import kotlin.random.Random
 
 @ApplicationScoped
 class HandleFeatureTogglesUseCaseImpl(

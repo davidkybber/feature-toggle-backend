@@ -1,6 +1,6 @@
 package com.davidkybber.presentation
 
-import com.davidkybber.presentation.dtos.FeatureToggleDto
+import com.davidkybber.presentation.dtos.FeatureToggleRequest
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.`is`
@@ -18,13 +18,12 @@ class FeatureToggleControllerTest {
 
     @Test
     fun `POST request to create toggle`() {
-        val requestBody = FeatureToggleDto(id = "2", name = "test2")
+        val requestBody = FeatureToggleRequest(id = "2", name = "test2")
         given()
             .contentType("application/json")
             .body(requestBody)
             .`when`().post("/api/featuretoggle")
-            .then().statusCode(200)
-            .body(`is`("test2 has been added to the feature toggles list."))
+            .then().statusCode(201)
     }
 
     @Test
@@ -32,7 +31,6 @@ class FeatureToggleControllerTest {
         given()
             .contentType("application/json")
             .`when`().delete("/api/featuretoggle/1")
-            .then().statusCode(200)
-            .body(`is`("Deleted toggle with id 1"))
+            .then().statusCode(204)
     }
 }

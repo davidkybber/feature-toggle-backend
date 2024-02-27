@@ -1,6 +1,6 @@
 package com.davidkybber.presentation.dtos
 
-data class FeatureToggleDto(
+data class FeatureToggleRequest(
     var name: String = "",
     var id: String = ""
 )
