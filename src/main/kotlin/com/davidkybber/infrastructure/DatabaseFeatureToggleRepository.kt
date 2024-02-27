@@ -5,6 +5,7 @@ import com.davidkybber.core.models.FeatureToggle
 import com.davidkybber.infrastructure.entities.FeatureToggleEntity
 import io.quarkus.hibernate.orm.panache.kotlin.PanacheRepositoryBase
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.transaction.Transactional
 
 @ApplicationScoped
 class DatabaseFeatureToggleRepository: FeatureToggleRepository, PanacheRepositoryBase<FeatureToggleEntity, String> {
@@ -19,10 +20,13 @@ class DatabaseFeatureToggleRepository: FeatureToggleRepository, PanacheRepositor
         }
     }
 
+    @Transactional
     override fun persistFeatureToggle(featureToggle: FeatureToggle) {
         persist(featureToggle.toEntity())
+        println("test")
     }
 
+    @Transactional
     override fun removeFeatureToggle(featureToggleId: String) {
         deleteById(featureToggleId)
     }

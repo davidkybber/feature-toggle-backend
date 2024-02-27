@@ -29,11 +29,9 @@ class FeatureToggleControllerTest {
 
     @Test
     fun `DELETE request deletes feature toggle with id`() {
-        val requestBody = FeatureToggleDto(id = "1")
         given()
             .contentType("application/json")
-            .body(requestBody)
-            .`when`().delete("/api/featuretoggle")
+            .`when`().delete("/api/featuretoggle/1")
             .then().statusCode(200)
             .body(`is`("Deleted toggle with id 1"))
     }

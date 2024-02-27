@@ -7,6 +7,7 @@ import jakarta.ws.rs.DELETE
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.core.Response
 import kotlin.random.Random
 
@@ -28,8 +29,9 @@ class FeatureToggleController(
     }
 
     @DELETE
-    fun deleteFeatureToggle(featureToggleDto: FeatureToggleDto): Response {
-        handleFeatureTogglesUseCase.deleteFeatureToggle(featureToggleDto.id)
-        return Response.ok("Deleted toggle with id ${featureToggleDto.id}").build()
+    @Path("/{id}")
+    fun deleteFeatureToggle(@PathParam("id") id: String): Response {
+        handleFeatureTogglesUseCase.deleteFeatureToggle(id)
+        return Response.ok("Deleted toggle with id $id").build()
     }
 }
