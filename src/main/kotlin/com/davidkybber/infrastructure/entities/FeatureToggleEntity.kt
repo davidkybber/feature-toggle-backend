@@ -8,6 +8,6 @@ import jakarta.persistence.Table
 @Table(name = "feature_toggle")
 class FeatureToggleEntity {
     @Id
-    var id: String? = null
-    var name: String? = null
+    lateinit var id: String
+    lateinit var name: String
 }

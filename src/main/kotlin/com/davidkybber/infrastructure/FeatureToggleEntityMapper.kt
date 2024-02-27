@@ -4,7 +4,7 @@ import com.davidkybber.core.models.FeatureToggle
 import com.davidkybber.infrastructure.entities.FeatureToggleEntity
 
 fun FeatureToggleEntity.toDomainModel(): FeatureToggle {
-    return FeatureToggle(id = this.id ?: "error", name = this.name ?: "undefined")
+    return FeatureToggle(id = this.id, name = this.name)
 }
 
 

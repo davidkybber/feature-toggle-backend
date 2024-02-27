@@ -23,7 +23,6 @@ class DatabaseFeatureToggleRepository: FeatureToggleRepository, PanacheRepositor
     @Transactional
     override fun persistFeatureToggle(featureToggle: FeatureToggle) {
         persist(featureToggle.toEntity())
-        println("test")
     }
 
     @Transactional
