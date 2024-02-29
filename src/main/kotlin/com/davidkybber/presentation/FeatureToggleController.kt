@@ -6,13 +6,27 @@ import com.davidkybber.presentation.dtos.toDomainModel
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.UriBuilder
-import java.net.URI
 
 @Path("/api/featuretoggle")
 class FeatureToggleController(
     val handleFeatureTogglesUseCase: HandleFeatureTogglesUseCase
 ) {
     // TODO: Proper error handling in the API
+    // TODO: Redesign how the ID is generated, shouldn't come from the API
+    @GET
+    @Path("/{id}")
+    fun getFeatureToggle(@PathParam("id") id: String): Response {
+        val featureToggle = handleFeatureTogglesUseCase.getFeatureToggle(id)
+        return featureToggle.fold(
+            {
+                Response.status(Response.Status.BAD_REQUEST).entity("No feature toggle found with that ID").build()
+            },
+            {
+                Response.ok(featureToggle).build()
+            }
+        )
+    }
+
     @GET
     fun getFeatureToggles(): Response {
         val featureToggles = handleFeatureTogglesUseCase.getAllFeatureToggles()

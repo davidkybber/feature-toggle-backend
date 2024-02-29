@@ -1,15 +1,17 @@
 package com.davidkybber.application
 
+import arrow.core.Either
+import com.davidkybber.core.FeatureToggleRepository
+import com.davidkybber.core.exceptions.FeatureToggleNotFoundException
 import com.davidkybber.core.models.FeatureToggle
 import jakarta.enterprise.context.ApplicationScoped
-import kotlin.random.Random
 
 @ApplicationScoped
 class HandleFeatureTogglesUseCaseImpl(
     val featureToggleRepository: FeatureToggleRepository
 ): HandleFeatureTogglesUseCase {
-    override fun getFeatureToggle(name: String): FeatureToggle {
-        return featureToggleRepository.fetchFeatureToggle(name) ?: throw Exception("feature toggle doesn't exist")
+    override fun getFeatureToggle(id: String): Either<FeatureToggleNotFoundException, FeatureToggle> {
+        return featureToggleRepository.fetchFeatureToggle(id)
     }
 
     override fun getAllFeatureToggles(): List<FeatureToggle> {

@@ -1,9 +1,11 @@
-package com.davidkybber.application
+package com.davidkybber.core
 
+import arrow.core.Either
+import com.davidkybber.core.exceptions.FeatureToggleNotFoundException
 import com.davidkybber.core.models.FeatureToggle
 
 interface FeatureToggleRepository {
-    fun fetchFeatureToggle(name: String): FeatureToggle?
+    fun fetchFeatureToggle(id: String): Either<FeatureToggleNotFoundException, FeatureToggle>
 
     fun fetchAllFeatureToggles(): List<FeatureToggle>
 
