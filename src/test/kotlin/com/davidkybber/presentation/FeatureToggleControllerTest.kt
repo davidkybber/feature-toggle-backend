@@ -9,6 +9,14 @@ import org.junit.jupiter.api.Test
 @QuarkusTest
 class FeatureToggleControllerTest {
     @Test
+    fun `GET Request for toggle returns toggle`() {
+        given()
+            .`when`().get("/api/featuretoggle/1")
+            .then().statusCode(200)
+            .body("id", `is`("1"))
+    }
+
+    @Test
     fun `GET request returns initial toggle`() {
         given()
             .`when`().get("/api/featuretoggle")
@@ -30,7 +38,7 @@ class FeatureToggleControllerTest {
     fun `DELETE request deletes feature toggle with id`() {
         given()
             .contentType("application/json")
-            .`when`().delete("/api/featuretoggle/1")
+            .`when`().delete("/api/featuretoggle/333")
             .then().statusCode(204)
     }
 }
