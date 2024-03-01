@@ -42,6 +42,16 @@ class FeatureToggleControllerTest {
     }
 
     @Test
+    fun `POST request to create existing user returns bad request`() {
+        val requestBody = FeatureToggleRequest(name = "test toggle")
+        given()
+            .contentType("application/json")
+            .body(requestBody)
+            .`when`().post("/api/featuretoggle")
+            .then().statusCode(400)
+    }
+
+    @Test
     fun `DELETE request deletes feature toggle with id`() {
         given()
             .contentType("application/json")

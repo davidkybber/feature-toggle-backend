@@ -1,6 +1,7 @@
 package com.davidkybber.application
 
 import arrow.core.Either
+import com.davidkybber.core.exceptions.FeatureToggleAlreadyExists
 import com.davidkybber.core.exceptions.FeatureToggleNotFoundException
 import com.davidkybber.core.models.FeatureToggle
 
@@ -11,5 +12,5 @@ interface HandleFeatureTogglesUseCase {
 
     fun deleteFeatureToggle(featureToggleId: String)
 
-    fun addFeatureToggle(featureToggleName: String): String
+    fun addFeatureToggle(featureToggleName: String): Either<FeatureToggleAlreadyExists, String>
 }

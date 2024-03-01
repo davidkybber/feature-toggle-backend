@@ -7,6 +7,8 @@ import com.davidkybber.core.models.FeatureToggle
 interface FeatureToggleRepository {
     fun fetchFeatureToggle(id: String): Either<FeatureToggleNotFoundException, FeatureToggle>
 
+    fun fetchFeatureToggleByName(name: String): Either<FeatureToggleNotFoundException, FeatureToggle>
+
     fun fetchAllFeatureToggles(): List<FeatureToggle>
 
     fun persistFeatureToggle(featureToggle: FeatureToggle)

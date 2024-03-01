@@ -1,7 +1,10 @@
 package com.davidkybber.application
 
 import arrow.core.Either
+import arrow.core.raise.either
+import arrow.core.raise.ensure
 import com.davidkybber.core.FeatureToggleRepository
+import com.davidkybber.core.exceptions.FeatureToggleAlreadyExists
 import com.davidkybber.core.exceptions.FeatureToggleNotFoundException
 import com.davidkybber.core.models.FeatureToggle
 import jakarta.enterprise.context.ApplicationScoped
@@ -23,11 +26,18 @@ class HandleFeatureTogglesUseCaseImpl(
         featureToggleRepository.removeFeatureToggle(featureToggleId)
     }
 
-    override fun addFeatureToggle(featureToggleName: String): String {
+    override fun addFeatureToggle(featureToggleName: String): Either<FeatureToggleAlreadyExists, String> {
         val id = UUID.randomUUID().toString()
         val featureToggle = FeatureToggle(id = id, name = featureToggleName)
-        featureToggleRepository.persistFeatureToggle(featureToggle)
+        val featureToggleExistsResult = featureToggleRepository.fetchFeatureToggleByName(featureToggleName)
 
-        return id
+        return either {
+            ensure(featureToggleExistsResult.isLeft()) {
+                FeatureToggleAlreadyExists()
+            }
+
+            featureToggleRepository.persistFeatureToggle(featureToggle)
+            id
+        }
     }
 }

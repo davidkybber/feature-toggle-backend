@@ -24,6 +24,18 @@ class DatabaseFeatureToggleRepository: FeatureToggleRepository, PanacheRepositor
             featureToggleEntity.toDomainModel()
         }
 
+    override fun fetchFeatureToggleByName(name: String): Either<FeatureToggleNotFoundException, FeatureToggle> =
+        either {
+            val featureToggleEntity = find("name", name).firstResult()
+            ensure(
+                featureToggleEntity != null
+            ) {
+                FeatureToggleNotFoundException()
+            }
+
+            featureToggleEntity.toDomainModel()
+        }
+
     override fun fetchAllFeatureToggles(): List<FeatureToggle> {
         return findAll().list().map {
             it.toDomainModel()
