@@ -11,5 +11,5 @@ interface HandleFeatureTogglesUseCase {
 
     fun deleteFeatureToggle(featureToggleId: String)
 
-    fun addFeatureToggle(featureToggle: FeatureToggle)
+    fun addFeatureToggle(featureToggleName: String): String
 }

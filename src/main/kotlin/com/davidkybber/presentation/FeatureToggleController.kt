@@ -2,7 +2,6 @@ package com.davidkybber.presentation
 
 import com.davidkybber.application.HandleFeatureTogglesUseCase
 import com.davidkybber.presentation.dtos.FeatureToggleRequest
-import com.davidkybber.presentation.dtos.toDomainModel
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.UriBuilder
@@ -11,7 +10,7 @@ import jakarta.ws.rs.core.UriBuilder
 class FeatureToggleController(
     val handleFeatureTogglesUseCase: HandleFeatureTogglesUseCase
 ) {
-    // TODO: Redesign how the ID is generated, shouldn't come from the API
+    // TODO: Handle invalid data for the Post requests
     @GET
     @Path("/{id}")
     fun getFeatureToggle(@PathParam("id") id: String): Response {
@@ -34,10 +33,11 @@ class FeatureToggleController(
 
     @POST
     fun saveFeatureToggle(featureToggleRequest: FeatureToggleRequest): Response {
-        handleFeatureTogglesUseCase.addFeatureToggle(featureToggleRequest.toDomainModel())
+
+        val newToggleId = handleFeatureTogglesUseCase.addFeatureToggle(featureToggleRequest.name)
 
         val uri = UriBuilder.fromResource(FeatureToggleController::class.java)
-            .path(featureToggleRequest.id)
+            .path(newToggleId)
             .build()
 
         return Response.created(uri).build()

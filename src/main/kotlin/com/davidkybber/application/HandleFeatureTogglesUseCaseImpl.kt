@@ -5,6 +5,7 @@ import com.davidkybber.core.FeatureToggleRepository
 import com.davidkybber.core.exceptions.FeatureToggleNotFoundException
 import com.davidkybber.core.models.FeatureToggle
 import jakarta.enterprise.context.ApplicationScoped
+import java.util.*
 
 @ApplicationScoped
 class HandleFeatureTogglesUseCaseImpl(
@@ -22,7 +23,11 @@ class HandleFeatureTogglesUseCaseImpl(
         featureToggleRepository.removeFeatureToggle(featureToggleId)
     }
 
-    override fun addFeatureToggle(featureToggle: FeatureToggle) {
+    override fun addFeatureToggle(featureToggleName: String): String {
+        val id = UUID.randomUUID().toString()
+        val featureToggle = FeatureToggle(id = id, name = featureToggleName)
         featureToggleRepository.persistFeatureToggle(featureToggle)
+
+        return id
     }
 }

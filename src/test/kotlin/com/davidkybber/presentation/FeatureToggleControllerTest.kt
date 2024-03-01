@@ -17,6 +17,13 @@ class FeatureToggleControllerTest {
     }
 
     @Test
+    fun `GET Request for non-existent user returns 400`() {
+        given()
+            .`when`().get("/api/featuretoggle/xxx")
+            .then().statusCode(400)
+    }
+
+    @Test
     fun `GET request returns initial toggle`() {
         given()
             .`when`().get("/api/featuretoggle")
@@ -26,7 +33,7 @@ class FeatureToggleControllerTest {
 
     @Test
     fun `POST request to create toggle`() {
-        val requestBody = FeatureToggleRequest(id = "2", name = "test2")
+        val requestBody = FeatureToggleRequest(name = "test2")
         given()
             .contentType("application/json")
             .body(requestBody)
