@@ -32,6 +32,16 @@ jobs:
 
     - name: Build the Quarkus App
       run: ./gradlew build -x test
-      
-    - name: Build the Docker image
-      run: docker build . --file src/main/docker/Dockerfile.jvm --tag feature-toggle-backend:$(date +%s)
+
+    - name: Log in to Google Cloud Container Registry
+      uses: google-github-actions/setup-gcloud@v0.2.0
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+
+    - name: Build and push Docker image
+      run: |
+        echo $GITHUB_SHA | cut -c1-7 | xargs -I {} docker build . --file src/main/docker/Dockerfile.jvm -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:{}
+        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:$(echo $GITHUB_SHA | cut -c1-7)
+
