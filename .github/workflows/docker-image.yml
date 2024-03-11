@@ -45,6 +45,6 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        echo $GITHUB_SHA | cut -c1-7 | xargs -I {} docker build . --file src/main/docker/Dockerfile.jvm -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:{}
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:$(echo $GITHUB_SHA | cut -c1-7)
+        echo $GITHUB_SHA | cut -c1-7 | xargs -I {} docker build . --file src/main/docker/Dockerfile.jvm -t eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:{}
+        docker push eu.gcr.io/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:$(echo $GITHUB_SHA | cut -c1-7)
 
