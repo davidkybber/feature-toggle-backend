@@ -45,6 +45,6 @@ jobs:
     - name: Build and push Docker image
       run: |
         gcloud auth configure-docker europe-west3-docker.pkg.dev --quiet
-        echo $GITHUB_SHA | cut -c1-7 | xargs -I {} docker build . --file src/main/docker/Dockerfile.jvm -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:{}
-        docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend:$(echo $GITHUB_SHA | cut -c1-7)
+        echo $GITHUB_SHA | cut -c1-7 | xargs -I {} docker build . --file src/main/docker/Dockerfile.jvm -t europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend/feature-toggle-backend:{}
+        docker push europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/feature-toggle-backend/feature-toggle-backend:$(echo $GITHUB_SHA | cut -c1-7)
 
